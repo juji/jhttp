@@ -60,9 +60,9 @@ http.send( options );
 {
 	url:'',
 	method:'get',
+	accept: '*/*',
 	output: 'string',
 	expect:200,
-	accept: '*/*',
 	charset: 'UTF-8',
 	followRedirect: true,
 	saveCookie: true,
@@ -81,13 +81,17 @@ http.send( options );
 
 **`options.method`** "get", "post", "put", "delete", "head".
 
-**`options.output`** "string", "buffer", "json", "$". The `$` ids for jQuery-like object.
-
-**`options.expect`** HTTP status to expect. Will *reject* the promise if not fulfilled.
-
 **`options.accept`** will be used in `Accept` headers.
 
 `options.accept = "*/*"` will be overriden by `options.output = "json"` or `options.output = "$"`.
+
+**`options.output`** "string", "buffer", "json", "$". The `$` ids for jQuery-like object.
+
+`options.output = "json"` will change `options.accept` from `*/*` to "application/json"`
+
+`options.output = "$"` will change `options.accept` from `*/*` to "text/html"`
+
+**`options.expect`** HTTP status to expect. Will *reject* the promise if not fulfilled.
 
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
