@@ -87,7 +87,7 @@ http.send( options );
 
 **`options.accept`** will be used in `Accept` headers.
 
-**`options.accept = "*/*`** will be overriden by `options.output = "json"` or `options.output = "$"`.
+`options.accept = "*/*` will be overriden by `options.output = "json"` or `options.output = "$"`.
 
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
