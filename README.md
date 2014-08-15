@@ -83,7 +83,7 @@ http.send( options );
 
 **`options.accept`** will be used in `Accept` headers.
 
-- `options.accept = "*/*"` will be overriden by `options.output = "json"` or `options.output = "$"`.
+- `options.accept = "*/*"` will be overriden by <br />`options.output = "json"` or `options.output = "$"`.
 
 **`options.output`** "string", "buffer", "json", "$". The `$` ids for jQuery-like object.
 
