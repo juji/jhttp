@@ -21,6 +21,7 @@ var extendArray = function(){
 			v[j] = arguments[i][j];
 		}
 	}
+	return v;
 };
 
 var extendObj = function(){
@@ -83,19 +84,6 @@ function constructHeaders(obj){
 	if( typeof c['accept-charset'] == 'undefined' ) c['accept-charset'] = charset;
 	if( typeof c['accept'] == 'undefined' ) c['accept'] = accept;
 
-	if(obj.data && obj.method!='get'){
-		c['content-type'] = getContentType(obj.data);
-
-		var bound = '';
-		if(c['content-type'] == 'multipart/form-data'){
-			bound = getBound();
-			c['content-type']+='; boundary='+bound;
-		}
-
-		obj.data = constructData(obj.data,bound);
-		c['content-length'] = obj.data.length;
-	}
-
 	return upperCaseKeys(c);
 }
 
@@ -113,12 +101,13 @@ function getContentType(data){
 function encodePostData(data){
 	var s = '';
 	for(var i in data){
-		s += encodeURIComponent(data[i].name) + '=' + encodeURIComponent(data[i].value) + '&';
+		s += encodeURIComponent(i) + '=' + encodeURIComponent(data[i]) + '&';
 	}
 	return s.replace(/&$/,'');
 }
 
 function constructData(data,bound){
+
 	if(typeof data == 'string') return data;
 	if(typeof data.content == 'string') return data.content;
 
@@ -128,8 +117,8 @@ function constructData(data,bound){
 	var content = '--' + bound + "\n";
 	if(typeof data.content != 'undefined'){
 		for(var i in data.content) 
-			content += 'Content-Disposition: form-data; name="' + data.content[i].name + '"\n\n' + 
-						data.content[i].value + '\n' + '--' + bound + '\n';
+			content += 'Content-Disposition: form-data; name="' + i + '"\n\n' + 
+						data.content[i] + '\n' + '--' + bound + '\n';
 	}
 
 	for(var i in data.file){
@@ -176,32 +165,57 @@ jhttp.prototype.send = function(obj){
 
 	if(obj && typeof obj == 'object') obj = extendObj(this.options,obj);
 	if(obj && typeof obj == 'string') {
-		var url = normalizeUrl(obj);
+		var url = obj;
 		obj = extendObj(this.options);
 		obj.url = url;
 	}
+
+	obj.url = normalizeUrl(obj.url);
 
 	if(!obj) obj = extendObj(this.options);
 
 	var url = urlParse.parse(obj.url);
 	var d = q.defer();
 
+	// configure transport
 	var transport = http;
 	if(url.protocol=='https:') {
 		//console.log('\tUsing HTTPS');
 		transport = https;
 	}
+
+
+	// prepare data and headers
+	var bound = getBound();
+	var dataCons = '';
+	var headers = constructHeaders(obj);
+	if(obj.data && obj.method!='get'){
+		headers['Content-Type'] = getContentType(obj.data);
+		if(headers['Content-Type'] == 'multipart/form-data')
+			headers['Content-Type']+='; boundary='+bound;
+
+		dataCons = constructData(obj.data,bound);
+		headers['Content-Length'] = dataCons.length;
+	}
+
+	this.last = {};
+	this.last.header = headers;
+	this.last.body = dataCons;
+	this.last.url = this.url;
 	
+	// set opts for native http/https
 	var opt = {
 		hostname: url.hostname,
 		path: url.path,
 		method: obj.method.toUpperCase(),
-		headers: constructHeaders(obj)
+		headers: headers
 	}
 
 	if(url.port) opt.port = url.port;
 	if(obj.auth) opt.auth = obj.auth;
 
+
+	// start request
 	var t = this;
 	this.request = transport.request(opt,function(res){
 
@@ -223,7 +237,8 @@ jhttp.prototype.send = function(obj){
 			return;
 		}
 
-		var respEncoding = headers['content-type'].match('charset=(.*?)(;|$)')[1];
+		var respEncoding = headers['content-type'].match('charset=(.*?)(;|$)');
+		respEncoding = respEncoding && respEncoding.length > 1 ? respEncoding[1] : 'UTF-8';
 		
 		////////////////////////////
 
@@ -251,8 +266,9 @@ jhttp.prototype.send = function(obj){
 		d.reject({ status:0, text: 'HTTP failed. Internet down?' });
 	});
 
-	if(obj.data && obj.method != 'get')
-	this.request.write( constructData( obj.data ) );
+	// send data if any
+	if(dataCons && obj.method != 'get')
+	this.request.write( dataCons );
 	
 	this.request.end();
 

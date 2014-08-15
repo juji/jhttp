@@ -117,7 +117,7 @@ Use `options.data` object to transfer data. Below are some example of data trans
 The following will create an `application/x-www-form-urlencoded` data transfer:
 ```javascript
 {
-	content: {
+	content:{
 		name: 'JohnDoe',
 		occupation: 'Awesome Staff'
 	}
@@ -138,8 +138,8 @@ A `multipart/form-data` data transfer can also be created:
 ```javascript
 {
 	content: {
-		name: 'JohnDoe',
-		occupation: 'Awesome Staff'
+			name: 'JohnDoe',
+			occupation: 'Awesome Staff'
 	},
 	file:[
 		{ 
