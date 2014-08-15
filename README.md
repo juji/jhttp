@@ -6,14 +6,14 @@ reservation
 
 node.js promise-based http client
 
-##feature
+##features
 - HTTP & HTTPS
 - GET, POST, PUT, DELETE, HEAD
 - return string as response `body`
 - return jQuery like object  as response `body` ([cheerio](https://www.npmjs.org/package/cheerio))
 - return json object as response `body`
 - return buffer as response `body`
-- support file upload or other arbitrary HTTP file transfer
+- support file upload or other arbitrary HTTP data transfer
 
 ##install
 ```javascript
@@ -51,6 +51,7 @@ http.send("google.com")
 var http = new HTTP( options );
 
 // per-request options
+// will extend global options
 http.send( options );
 ```
 
@@ -86,6 +87,8 @@ http.send( options );
 
 **`options.accept`** will be used in `Accept` headers.
 
+**`options.accept = "*/*`** will be overriden by `options.output = "json"` or `options.output = "$"`.
+
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
 **`options.followRedirect`** wheter to follow redirect or not. Will not *reject* on redirect status (3**)
@@ -102,12 +105,12 @@ http.send( options );
 
 ##Data Transfer
 
-The `options.data` object is preserved for data transfer. Below are some example of data uploads.
+The `options.data` object is preserved for data transfer. Below are some example of data transfers.
 
 **NOTE:** `GET` request will not use the `options.data` attribute.
 
 ####HTML form upload
-The following will create an `application/x-www-form-urlencoded` body
+The following will create an `application/x-www-form-urlencoded` data transfer:
 ```javascript
 {
 	content: {
@@ -127,7 +130,7 @@ Content-Length: 39
 name=JohnDoe&occupation=Awesome%20Staff
 ```
 
-A `multipart/form-data` file transfer can also be created
+A `multipart/form-data` data transfer can also be created:
 ```javascript
 {
 	content: {
@@ -169,7 +172,7 @@ Content-Disposition: form-data; name="name"
 
 JohnDoe
 --o98aywaw74eyo
-Content-Disposition: form-data; name="accupation"
+Content-Disposition: form-data; name="occupation"
 
 Awesome%20Staff
 --o98aywaw74eyo
