@@ -87,9 +87,9 @@ http.send( options );
 
 **`options.output`** "string", "buffer", "json", "$". The `$` will output jQuery-like object.
 
-- `options.output = "json"` will change `options.accept` from `*/*` to "application/json"`.
+- `options.output = "json"` will change `options.accept` from `*/*` to `"application/json"`.
 
-- `options.output = "$"` will change `options.accept` from `*/*` to "text/html"`.
+- `options.output = "$"` will change `options.accept` from `*/*` to `"text/html"`.
 
 **`options.expect`** HTTP status to expect. Will *reject* the *promise* if not fulfilled.
 
