@@ -77,7 +77,7 @@ http.send( options );
 // above are the default values
 ```
 
-**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com"
+**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com".
 
 **`options.method`** "get", "post", "put", "delete", "head".
 
@@ -85,25 +85,25 @@ http.send( options );
 
 - `options.accept = "*/*"` will be overriden by <br />`options.output = "json"` or `options.output = "$"`.
 
-**`options.output`** "string", "buffer", "json", "$". The `$` ids for jQuery-like object.
+**`options.output`** "string", "buffer", "json", "$". The `$` will output jQuery-like object.
 
-- `options.output = "json"` will change `options.accept` from `*/*` to "application/json"`
+- `options.output = "json"` will change `options.accept` from `*/*` to "application/json"`.
 
-- `options.output = "$"` will change `options.accept` from `*/*` to "text/html"`
+- `options.output = "$"` will change `options.accept` from `*/*` to "text/html"`.
 
-**`options.expect`** HTTP status to expect. Will *reject* the promise if not fulfilled.
+**`options.expect`** HTTP status to expect. Will *reject* the *promise* if not fulfilled.
 
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
-**`options.followRedirect`** wheter to follow redirect or not. Will not *reject* on redirect status (3**)
+**`options.followRedirect`**. If `true`, will not *reject* *promise* on redirect status (3**).
 
-**`options.saveCookie`** will save cookie for future requests.
+**`options.saveCookie`** will save cookie and use them for future requests with the same domain.
 
-**`options.auth`** basic HTTP auth: "user:password"
+**`options.auth`** basic HTTP auth: "user:password".
 
-**`options.headers.accept`** will override **`options.accept`**
+**`options.headers.accept`** will override **`options.accept`**.
 
-**`options.headers["accept-charset"]`** will override **`options.charset`**
+**`options.headers["accept-charset"]`** will override **`options.charset`**.
 
 ---
 
