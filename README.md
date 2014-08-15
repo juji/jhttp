@@ -2,7 +2,7 @@
 
 reservation
 
-#jhttp
+#jhttp-client
 
 node.js promise-based http client
 
@@ -17,7 +17,7 @@ node.js promise-based http client
 
 ##install
 ```javascript
-npm install jhttp
+npm install jhttp-client
 ```
 
 ##usage
