@@ -81,7 +81,7 @@ http.send( options );
 
 **`options.method`** "get", "post", "put", "delete", "head".
 
-**`options.output`** "string", "buffer", "json", "$".
+**`options.output`** "string", "buffer", "json", "$". The `$` ids for jQuery-like object.
 
 **`options.expect`** HTTP status to expect. Will *reject* the promise if not fulfilled.
 
