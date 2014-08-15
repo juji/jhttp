@@ -101,7 +101,7 @@ http.send( options );
 
 **`options.auth`** basic HTTP auth: "user:password".
 
-**`options.headers.accept`** will override **`options.accept`**.
+**`options.headers.accept`** will override **`options.accept`** regardless of **`options.output`**.
 
 **`options.headers["accept-charset"]`** will override **`options.charset`**.
 
@@ -109,7 +109,7 @@ http.send( options );
 
 ##Data Transfer
 
-The `options.data` object is preserved for data transfer. Below are some example of data transfers.
+Use `options.data` object to transfer data. Below are some example of data transfers.
 
 **NOTE:** `GET` request will not use the `options.data` attribute.
 
@@ -178,7 +178,7 @@ JohnDoe
 --o98aywaw74eyo
 Content-Disposition: form-data; name="occupation"
 
-Awesome%20Staff
+Awesome Staff
 --o98aywaw74eyo
 Content-Disposition: form-data; name="uploaded1"; filename="file.txt"
 Content-Type: text/plain
@@ -208,7 +208,7 @@ You can construct everything yourself:
 ```
 Remember that using `options.data.type` will override `Content-Type` header.
 
-Use it only to send strings with `options.data.content`.
+Use it only to send strings with `options.data.content`, unless you know what you're doing..
 
 
 

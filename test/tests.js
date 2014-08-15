@@ -1,34 +1,65 @@
+
+
 var Http = require('../');
 var http = new Http();
+var chai = require('chai');
+var should = chai.should;
+var q = require('q');
 
-describe('#get',function(){
+describe('#http',function(done){
 
-	it('should fetch google.com',function(done){
+	it('should fetch google.com',function(){
 
-		http.send('google.com')
-		.then(function(status, header, body){
-			console.log('status: '+status);
-			console.log('header: '+header);
-		}).fail(function(status,text){
-			console.log('FAILED');
-			console.log('status: '+status);
-			console.log('text: '+text);
+		return http.send('google.com')
+		.then(function( resp ){
+
+			console.log('\tOK');
+			return q.all([
+				resp.status.should.equal( 200 ),
+				resp.headers.should.be.an( 'object' )
+			]);
+
+		}).fail(function( resp ){
+			
+			console.log('\tFAILED');
+			console.log(resp);
+			return q.all([
+				(/^3/.test(resp.status+'')).should.equal(true),
+				resp.status.should.equal( 200 ),
+				resp.text.should.be.a( 'string' )
+			]);
+
 		});
-		done();
+		
 	});
+});
 
+describe('#https',function(){
+
+	this.timeout(10000);
 	it('should fetch https://google.com',function(done){
 
 		http.send('https://google.com')
-		.then(function(status, header, body){
-			console.log('status: '+status);
-			console.log('header: '+header);
-		}).fail(function(status,text){
-			console.log('FAILED');
-			console.log('status: '+status);
-			console.log('text: '+text);
+		.then(function( resp ){
+
+			console.log('\tOK');
+			return q.all([
+				resp.status.should.equal( 200 ),
+				resp.headers.should.be.an( 'object' )
+			]);
+
+		}).fail(function( resp ){
+			
+			console.log('\tFAILED');
+			console.log(resp);
+			return q.all([
+				(/^3/.test(resp.status+'')).should.equal(true),
+				resp.status.should.equal( 200 ),
+				resp.text.should.be.a( 'string' )
+			]);
+
 		});
-		done();
+
 	});
 
 });
