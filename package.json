@@ -1,7 +1,7 @@
 {
   "name": "jhttp",
-  "version": "0.1.0",
-  "description": "http client for nodejs",
+  "version": "0.1.1",
+  "description": "Promise-based http client for node.js",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
