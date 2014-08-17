@@ -52,7 +52,7 @@ var http = new HTTP( options );
 
 // per-request options
 // will extend global options
-http.send( options );
+http.request( options );
 ```
 
 ###`options` [object]
