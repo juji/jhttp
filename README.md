@@ -23,10 +23,10 @@ npm install jhttp-client
 ##usage
 ```javascript
 
-var HTTP = require("jhttp");
-var http = new HTTP();
+var HTTPC = require("jhttp-client");
+var httpc = new HTTPC();
 
-http.send("google.com")
+httpc.request("google.com")
 .then(function( response ){
 	
 	console.log(response.status);
@@ -65,7 +65,7 @@ http.send( options );
 	expect:200,
 	charset: 'UTF-8',
 	followRedirect: true,
-	saveCookie: true,
+	useCookie: true,
 	auth:'',
 	headers:{
 		'user-agent': ua.generate(),
@@ -95,9 +95,11 @@ http.send( options );
 
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
-**`options.followRedirect`**. If `true`, will not *reject* *promise* on redirect status (3**).
+**`options.followRedirect`**. If `true`, will not *reject* the *promise* on redirect status (3**).
 
-**`options.saveCookie`** will save cookie and use them for future requests with the same domain.
+**`options.useCookie`** will save cookie and use them for future requests with the same domain.
+
+- `options.useCookie` Will be overriden by `options.headers.cookie` value.
 
 **`options.auth`** basic HTTP auth: "user:password".
 

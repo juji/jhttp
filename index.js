@@ -7,6 +7,10 @@ var urlParse = require('url');
 var encoding = require('encoding');
 var cheerio = require('cheerio');
 var mime = require('mime');
+var CookieManager = require('cookie-manager');
+var concatStream = require('concat-stream')
+var zlib = require('zlib');
+var passStream = require('pass-stream');
 
 var normalizeUrl = function(str){
 	if(/^https\:\/\//.test(str)) return str;
@@ -49,7 +53,7 @@ var defaultOpts = {
 	expect:200,
 	charset: 'UTF-8',
 	followRedirect: true,
-	saveCookie: true,
+	useCookie: true,
 	auth:'',
 	headers:{
 		'user-agent': ua.generate(),
@@ -148,9 +152,9 @@ function isRedirection(status){
 var jhttp = function(obj){
 
 	this.options = extendObj(defaultOpts);
-	this.request = false;
+	this.req = false;
 
-	this.cookies = [];
+	this.cookies = new CookieManager();
 
 	if(obj && typeof obj == 'object') this.options = extendObj(this.options,obj);
 	if(obj && typeof obj == 'string') this.options.url = normalizeUrl(obj);
@@ -158,10 +162,10 @@ var jhttp = function(obj){
 };
 
 jhttp.prototype.abort = function(){
-	this.request.abort();
+	this.req.abort();
 }
 
-jhttp.prototype.send = function(obj){
+jhttp.prototype.request = function(obj){
 
 	if(obj && typeof obj == 'object') obj = extendObj(this.options,obj);
 	if(obj && typeof obj == 'string') {
@@ -180,10 +184,8 @@ jhttp.prototype.send = function(obj){
 	// configure transport
 	var transport = http;
 	if(url.protocol=='https:') {
-		//console.log('\tUsing HTTPS');
 		transport = https;
 	}
-
 
 	// prepare data and headers
 	var bound = getBound();
@@ -198,10 +200,13 @@ jhttp.prototype.send = function(obj){
 		headers['Content-Length'] = dataCons.length;
 	}
 
+	if(typeof headers['Cookie'] == 'undefined') headers['Cookie'] = this.cookies.prepare( url.href );
+	if( !headers['Cookie'] || !obj.useCookie )  delete headers['Cookie'];
+
 	this.last = {};
 	this.last.header = headers;
 	this.last.body = dataCons;
-	this.last.url = this.url;
+	this.last.url = url.href;
 	
 	// set opts for native http/https
 	var opt = {
@@ -217,10 +222,7 @@ jhttp.prototype.send = function(obj){
 
 	// start request
 	var t = this;
-	this.request = transport.request(opt,function(res){
-
-		//get headers
-		var headers = lowerCaseKeys( res.headers );
+	this.req = transport.request(opt,function(res){
 
 		//read status
 		if( res.statusCode != obj.expect && !isRedirection(res.statusCode)) {
@@ -232,24 +234,31 @@ jhttp.prototype.send = function(obj){
 		}
 
 		if( res.statusCode != obj.expect && isRedirection(res.statusCode) && obj.followRedirect) {
-			obj.url = headers['location'];
-			d.resolve( t.send( obj ) );
+			obj.url = res.headers['location'];
+			d.resolve( t.req = t.request( obj ) );
 			return;
 		}
 
-		var respEncoding = headers['content-type'].match('charset=(.*?)(;|$)');
-		respEncoding = respEncoding && respEncoding.length > 1 ? respEncoding[1] : 'UTF-8';
+		//read & save cookie
+		if(typeof res.headers['set-cookie'] != 'undefined'){
+			t.cookies.store( url.href, res.headers['set-cookie'] );
+		}
+
+		//read charset
+		var charset = res.headers['content-type'].match('charset=(.*?)(;|$)');
+		charset = charset && charset.length > 1 ? charset[1] : 'UTF-8';
 		
+		//read encoding
+		var contentEncoding = typeof res.headers['content-encoding'] == 'undefined' ? '' : res.headers['content-encoding'];
 		////////////////////////////
-
-		var b = '';
-		res.on('data',function(d){ b += d.toString(); });
-		res.on('end',function(){
-
-			b = encoding.convert( b , obj.charset,  respEncoding);
+		
+		res.pipe( contentEncoding ? zlib.createUnzip() : passStream() )
+		.pipe(concatStream(function(b){
+			if( obj.charset != charset )
+			b = encoding.convert( b , obj.charset,  charset);
 			var r = { 
 				status: res.statusCode,
-				headers: lowerCaseKeys(res.headers),
+				headers: res.headers,
 				body: b
 			}
 
@@ -258,19 +267,19 @@ jhttp.prototype.send = function(obj){
 			if( obj.output == '$' ) r.body = cheerio.load(r.body.toString());
 
 			d.resolve( r );
+		}));
 
-		});
 	});
 
-	this.request.on('error', function(e) {
+	this.req.on('error', function(e) {
 		d.reject({ status:0, text: 'HTTP failed. Internet down?' });
 	});
 
 	// send data if any
 	if(dataCons && obj.method != 'get')
-	this.request.write( dataCons );
+	this.req.write( dataCons );
 	
-	this.request.end();
+	this.req.end();
 
 	return d.promise;
 }
