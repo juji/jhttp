@@ -104,6 +104,7 @@ http.request( options );
 **`options.headers["accept-charset"]`** will override **`options.charset`**.
 
 - `options.headers["accept-encoding"]` will always be `gzip, deflate, identity`.
+
 ---
 
 ##Data Transfer
