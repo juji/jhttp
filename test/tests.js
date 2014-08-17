@@ -10,7 +10,7 @@ var q = require('q');
 describe('jhttp-client test suite',function(){
 
 
-this.timeout(5000);
+this.timeout(6000);
 
 describe('#http',function(){
 

@@ -56,8 +56,7 @@ var defaultOpts = {
 	useCookie: true,
 	auth:'',
 	headers:{
-		'user-agent': ua.generate(),
-		'accept-encoding': 'gzip; q=1.0, deflate; q=0.6, identity; q=0.3, *; q=0'
+		'user-agent': ua.generate()
 	},
 	data: false
 }
@@ -202,6 +201,7 @@ jhttp.prototype.request = function(obj){
 
 	if(typeof headers['Cookie'] == 'undefined') headers['Cookie'] = this.cookies.prepare( url.href );
 	if( !headers['Cookie'] || !obj.useCookie )  delete headers['Cookie'];
+	headers['Accept-Encoding'] = 'gzip, deflate, identity';
 
 	this.last = {};
 	this.last.header = headers;
@@ -250,6 +250,7 @@ jhttp.prototype.request = function(obj){
 		
 		//read encoding
 		var contentEncoding = typeof res.headers['content-encoding'] == 'undefined' ? '' : res.headers['content-encoding'];
+		contentEncoding = contentEncoding=='identity' ? false : contentEncoding;
 		////////////////////////////
 		
 		res.pipe( contentEncoding ? zlib.createUnzip() : passStream() )

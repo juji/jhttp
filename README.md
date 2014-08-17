@@ -68,8 +68,7 @@ http.send( options );
 	useCookie: true,
 	auth:'',
 	headers:{
-		'user-agent': ua.generate(),
-		'accept-encoding': 'gzip; q=1.0, deflate; q=0.6, identity; q=0.3, *; q=0'
+		'user-agent': ua.generate()
 	},
 	data: false
 }
@@ -107,6 +106,7 @@ http.send( options );
 
 **`options.headers["accept-charset"]`** will override **`options.charset`**.
 
+- `options.headers['accept-encoding']` will always be `gzip, deflate, identity`
 ---
 
 ##Data Transfer
