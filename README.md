@@ -1,7 +1,3 @@
-#NOT DONE!!
-
-reservation
-
 #jhttp-client
 
 node.js promise-based http client
