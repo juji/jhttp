@@ -55,6 +55,9 @@ var defaultOpts = {
 	followRedirect: true,
 	useCookie: true,
 	auth:'',
+	ssl:{
+		rejectUnauthorized: false
+	},
 	headers:{
 		'user-agent': ua.generate()
 	},
@@ -117,11 +120,11 @@ function constructData(data,bound){
 	if(typeof data.content == 'object' && typeof data.file == 'undefined')
 		return encodePostData(data.content);
 
-	var content = '--' + bound + "\n";
+	var content = '--' + bound + "\r\n";
 	if(typeof data.content != 'undefined'){
 		for(var i in data.content) 
-			content += 'Content-Disposition: form-data; name="' + i + '"\n\n' + 
-						data.content[i] + '\n' + '--' + bound + '\n';
+			content += 'Content-Disposition: form-data; name="' + i + '"\r\n\r\n' + 
+						data.content[i] + '\r\n' + '--' + bound + '\r\n';
 	}
 
 	for(var i in data.file){
@@ -135,12 +138,12 @@ function constructData(data,bound){
 				data.file[i].mime = mime.lookup(filename);
 
 			content += 'Content-Disposition: form-data; name="' + data.file[i].name + '"; filename="' + 
-						filename + '"\n' + 'Content-Type: '+ data.file[i].mime + '\n\n' + 
-						data.file[i].content + '\n' + '--' + bound + '\n';
+						filename + '"\r\n' + 'Content-Type: '+ data.file[i].mime + '\r\n\r\n' + 
+						data.file[i].content + '\r\n' + '--' + bound + '\r\n';
 		})();
 	}
 
-	return content.replace(/\n$/,'--');
+	return content.replace(/\r\n$/,'--');
 
 }
 
@@ -216,6 +219,10 @@ jhttp.prototype.request = function(obj){
 		headers: headers
 	}
 
+	if(url.protocol=='https:' ) {
+		for(var i in obj.ssl) opt[i] = obj.ssl[i];
+	}
+
 	if(url.port) opt.port = url.port;
 	if(obj.auth) opt.auth = obj.auth;
 
@@ -225,7 +232,7 @@ jhttp.prototype.request = function(obj){
 	this.req = transport.request(opt,function(res){
 
 		//read status
-		if( res.statusCode != obj.expect && !isRedirection(res.statusCode)) {
+		if( obj.expect && res.statusCode != obj.expect && !isRedirection(res.statusCode)) {
 			d.reject({
 				status: res.statusCode,
 				text: 'Unexpected HTTP Status'
@@ -273,7 +280,7 @@ jhttp.prototype.request = function(obj){
 	});
 
 	this.req.on('error', function(e) {
-		d.reject({ status:0, text: 'HTTP failed. Internet down?' });
+		d.reject({ status:0, text: e });
 	});
 
 	// send data if any

@@ -64,6 +64,9 @@ http.request( options );
 	followRedirect: true,
 	useCookie: true,
 	auth:'',
+	ssl:{
+		rejectUnauthorized: false
+	},
 	headers:{
 		'user-agent': ua.generate()
 	},
@@ -89,6 +92,8 @@ http.request( options );
 
 **`options.expect`** HTTP status to expect. Will *reject* the *promise* if not fulfilled.
 
+- Use `options.expect = false` to accept every HTTP status
+
 **`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
 
 **`options.followRedirect`**. If `true`, will not *reject* the *promise* on redirect status (3**).
@@ -96,6 +101,8 @@ http.request( options );
 **`options.useCookie`** will save cookie and use them for future requests with the same domain.
 
 - `options.useCookie` Will be overriden by `options.headers.cookie` value.
+
+**`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
 
 **`options.auth`** basic HTTP auth: "user:password".
 

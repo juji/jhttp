@@ -1,70 +1,10 @@
-
-
 var Http = require('../');
 var http = new Http();
 var chai = require('chai');
 var should = chai.should();
 var q = require('q');
-var urlParse = require('url');
 
 
-var httpport = 9872;
-var httpsport = httpport+1;
-/* // create server for testing
-var server = require('http').createServer(function(req,resp){
-	var path = urlParse.parse(req.url).pathname;
-	var f = {
-		'/' : function(){
-			resp.writeHead(200, {'Content-Type':'text/plain'});
-			resp.write('Hello');
-			resp.end();
-		},
-		'/gzip' : function(){
-			resp.writeHead(200, {
-				'Content-Type':'text/plain',
-				'Content-Encoding':'gzip'
-			});	
-			var z = zlib.createGzip();
-			z.pipe(resp);
-			z.write('HelloGZIP');
-			z.end();
-		},
-		'/deflate' : function(){
-			resp.writeHead(200, {
-				'Content-Type':'text/plain',
-				'Content-Encoding':'deflate'
-			});	
-			var z = zlib.createDeflate();
-			z.pipe(resp);
-			z.write('HelloDEFLATE');
-			z.end();
-		},
-		'/upload' : function(){
-			resp.writeHead(200, { 'Content-Type':'application/json' });	
-			var z = zlib.createDeflate();
-			z.pipe(resp);
-			z.write('HelloDEFLATE');
-			z.end();
-		}
-	};
-});
-
-server.listen(httpport);
-
-var serverS = require('https').createServer(function(req,resp){
-	var url = urlParse.parse(req.url);
-	var f = {
-		'/' : function(){ 
-			resp.writeHead(200, {'Content-Type':'text/plain','Content-Encoding':'identity'});
-			resp.write('HelloHTTPS');
-			resp.end();
-		}
-	};
-});
-
-serverS.listen(httpsport);
-
-/**/
 //start testing
 describe('jhttp-client test suite',function(){
 
@@ -72,15 +12,14 @@ this.timeout(6000);
 
 describe('#http',function(){
 
-	it('should fetch localhost:'+httpport,function(){
+	it('should fetch google.com',function(){
 
 		return http.request('google.com')
 		.then(function( resp ){
 
 			return q.all([
 				resp.status.should.equal( 200 ),
-				resp.headers.should.be.an( 'object' ) //,
-				//resp.body.should.equal( 'Hello' )
+				resp.headers.should.be.an( 'object' )
 			]);
 
 		});
@@ -91,7 +30,7 @@ describe('#http',function(){
 describe('#https',function(){
 
 	this.timeout(5000);
-	it('should fetch https://localhost:'+httpsport,function(){
+	it('should fetch https://google.com',function(){
 
 		return http.request('https://google.com')
 		.then(function( resp ){
@@ -99,8 +38,7 @@ describe('#https',function(){
 			console.log('\tOK');
 			return q.all([
 				resp.status.should.equal( 200 ),
-				resp.headers.should.be.an( 'object' ) //,
-				//resp.body.should.equal( 'HelloHTTPS' )
+				resp.headers.should.be.an( 'object' )
 			]);
 
 		});
