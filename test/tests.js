@@ -8,7 +8,7 @@ var q = require('q');
 //start testing
 describe('jhttp-client test suite',function(){
 
-this.timeout(6000);
+this.timeout(10000);
 
 describe('#http',function(){
 
@@ -29,7 +29,6 @@ describe('#http',function(){
 
 describe('#https',function(){
 
-	this.timeout(5000);
 	it('should fetch https://google.com',function(){
 
 		return http.request('https://google.com')
@@ -162,6 +161,41 @@ describe('#cookie',function(){
 
 				return resp.body.should.equal('cookie is good');
 
+			});
+
+		});
+
+		return f;
+
+	});
+
+});
+
+describe('#proxy',function(){
+
+	var proxy = 'http://68.229.81.145:9064';
+
+	it('should return different IP using proxy '+proxy,function(){
+		
+		var ip;
+		var f = http.request('http://icanhazip.com/')
+		.then(function( resp ){
+
+			console.log('	NO Proxy: '+resp.body);
+			ip = resp.body;
+			/(\d+(\.|))+/.test(resp.body).should.be.ok;
+
+			return http.request({
+				url: 'http://icanhazip.com/',
+				proxy: proxy
+			})
+			.then(function(resp2){
+
+				console.log('	WITH Proxy: '+resp2.body);
+				/(\d+(\.|))+/.test(resp2.body).should.be.ok;
+				resp2.body.should.not.equal(ip);
+				return true;
+				
 			});
 
 		});

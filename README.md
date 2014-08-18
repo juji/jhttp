@@ -64,6 +64,7 @@ http.request( options );
 	followRedirect: true,
 	useCookie: true,
 	auth:'',
+	proxy:'',
 	ssl:{
 		rejectUnauthorized: false
 	},
@@ -102,9 +103,11 @@ http.request( options );
 
 - `options.useCookie` Will be overriden by `options.headers.cookie` value.
 
-**`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
-
 **`options.auth`** basic HTTP auth: "user:password".
+
+**`options.proxy`** To make request through a proxy, i.e. http://myproxy.co
+
+**`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
 
 **`options.headers.accept`** will override **`options.accept`** regardless of **`options.output`**.
 

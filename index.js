@@ -55,6 +55,7 @@ var defaultOpts = {
 	followRedirect: true,
 	useCookie: true,
 	auth:'',
+	proxy: '',
 	ssl:{
 		rejectUnauthorized: false
 	},
@@ -183,12 +184,6 @@ jhttp.prototype.request = function(obj){
 	var url = urlParse.parse(obj.url);
 	var d = q.defer();
 
-	// configure transport
-	var transport = http;
-	if(url.protocol=='https:') {
-		transport = https;
-	}
-
 	// prepare data and headers
 	var bound = getBound();
 	var dataCons = '';
@@ -205,11 +200,6 @@ jhttp.prototype.request = function(obj){
 	if(typeof headers['Cookie'] == 'undefined') headers['Cookie'] = this.cookies.prepare( url.href );
 	if( !headers['Cookie'] || !obj.useCookie )  delete headers['Cookie'];
 	headers['Accept-Encoding'] = 'gzip, deflate, identity';
-
-	this.last = {};
-	this.last.header = headers;
-	this.last.body = dataCons;
-	this.last.url = url.href;
 	
 	// set opts for native http/https
 	var opt = {
@@ -219,20 +209,32 @@ jhttp.prototype.request = function(obj){
 		headers: headers
 	}
 
-	if(url.protocol=='https:' ) {
-		for(var i in obj.ssl) opt[i] = obj.ssl[i];
-	}
-
 	if(url.port) opt.port = url.port;
 	if(obj.auth) opt.auth = obj.auth;
 
+	//set opts for proxy
+	if(obj.proxy){
+		var proxy = urlParse.parse(obj.proxy, false);
+        opt.path = url.protocol + '//' + url.host + url.path;
+        opt.headers.host = url.host;
+        opt.protocol = proxy.protocol;
+        opt.host = proxy.host;
+        opt.hostname = proxy.hostname;
+        opt.port = proxy.port;
+	}
+
+	//set https transport
+	if(opt.protocol=='https:' ) {
+		for(var i in obj.ssl) opt[i] = obj.ssl[i];
+	}
 
 	// start request
 	var t = this;
-	this.req = transport.request(opt,function(res){
+	this.req = (opt.protocol=='https:'?https:http).request(opt,function(res){
 
 		//read status
 		if( obj.expect && res.statusCode != obj.expect && !isRedirection(res.statusCode)) {
+			delete obj;
 			d.reject({
 				status: res.statusCode,
 				text: 'Unexpected HTTP Status'
@@ -274,12 +276,15 @@ jhttp.prototype.request = function(obj){
 			if( obj.output == 'json' ) r.body = JSON.parse(r.body.toString());
 			if( obj.output == '$' ) r.body = cheerio.load(r.body.toString());
 
+			delete obj;
+
 			d.resolve( r );
 		}));
 
 	});
 
 	this.req.on('error', function(e) {
+		delete obj;
 		d.reject({ status:0, text: e });
 	});
 
