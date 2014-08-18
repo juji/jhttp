@@ -21,9 +21,9 @@ npm install jhttp-client
 ```javascript
 
 var HTTPC = require("jhttp-client");
-var httpc = new HTTPC();
+var httpClient = HTTPC();
 
-httpc.request("google.com")
+httpClient.request("google.com")
 .then(function( response ){
 	
 	console.log(response.status);
@@ -45,11 +45,11 @@ httpc.request("google.com")
 ##Options
 ```javascript
 // global options
-var http = new HTTP( options );
+var httpClient = HTTPC( options );
 
 // per-request options
 // will extend global options
-http.request( options );
+httpClient.request( options );
 ```
 
 ###`options` [object]
@@ -105,7 +105,7 @@ http.request( options );
 
 **`options.auth`** basic HTTP auth: "user:password".
 
-**`options.proxy`** To make request through a proxy, i.e. http://myproxy.co
+**`options.proxy`** To make request through a proxy, i.e. http://123.345.543.234:8080
 
 **`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
 

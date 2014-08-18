@@ -297,4 +297,4 @@ jhttp.prototype.request = function(obj){
 	return d.promise;
 }
 
-module.exports = exports = jhttp;
+module.exports = exports = function(opt){ return new jhttp(opt) };
