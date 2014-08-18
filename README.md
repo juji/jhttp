@@ -5,9 +5,9 @@ node.js promise-based http client
 ##features
 - HTTP & HTTPS
 - GET, POST, PUT, DELETE, HEAD
-- built-in cookie manager
+- built-in [cookie manager](https://www.npmjs.org/package/cookie-manager)
 - return string as response `body`
-- return jQuery like object  as response `body` ([cheerio](https://www.npmjs.org/package/cheerio))
+- return jQuery like object as response `body` ([cheerio](https://www.npmjs.org/package/cheerio))
 - return json object as response `body`
 - return buffer as response `body`
 - support file upload or other arbitrary HTTP data transfer
