@@ -1,5 +1,4 @@
-var Http = require('../');
-var http = new Http();
+var http = require('../')();
 var chai = require('chai');
 var should = chai.should();
 var q = require('q');
@@ -195,7 +194,7 @@ describe('#proxy',function(){
 				/(\d+(\.|))+/.test(resp2.body).should.be.ok;
 				resp2.body.should.not.equal(ip);
 				return true;
-				
+
 			});
 
 		});

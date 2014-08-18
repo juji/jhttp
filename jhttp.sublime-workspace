@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"setE",
+				"socket.setEncoding"
+			],
+			[
 				"readS",
 				"fs.readSync"
 			],
@@ -119,15 +123,7 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 6575,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test/tests.js",
-			"settings":
-			{
-				"buffer_size": 3150,
+				"buffer_size": 7575,
 				"line_ending": "Unix"
 			}
 		},
@@ -135,7 +131,15 @@
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 773,
+				"buffer_size": 890,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/tests.js",
+			"settings":
+			{
+				"buffer_size": 3817,
 				"line_ending": "Unix"
 			}
 		},
@@ -151,23 +155,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 4661,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/media/yagitudeh/WORK/www/test/testpost.php",
-			"settings":
-			{
-				"buffer_size": 738,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/media/yagitudeh/WORK/www/test/post.php",
-			"settings":
-			{
-				"buffer_size": 486,
+				"buffer_size": 5158,
 				"line_ending": "Unix"
 			}
 		}
@@ -376,9 +364,16 @@
 	},
 	"file_history":
 	[
-		"/media/yagitudeh/WORK/npm/jhttp/package.json",
+		"/media/yagitudeh/WORK/www/juji/testcookie.php",
+		"/media/yagitudeh/WORK/node/upload/client.js",
+		"/media/yagitudeh/WORK/node/upload/server.js",
+		"/media/yagitudeh/WORK/node/socket.js",
 		"/media/yagitudeh/WORK/npm/jhttp/test/tests.js",
+		"/media/yagitudeh/WORK/www/test/testpost.php",
 		"/media/yagitudeh/WORK/www/test/post.php",
+		"/home/juji/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/media/yagitudeh/WORK/npm/jhttp/cookie-manager.sublime-project",
+		"/media/yagitudeh/WORK/npm/jhttp/package.json",
 		"/media/yagitudeh/WORK/npm/jhttp/README.md",
 		"/media/yagitudeh/scripts/indowebster/httpRequest.js",
 		"/media/yagitudeh/WORK/www/bridalbook/modules/Vendor.js",
@@ -437,7 +432,6 @@
 		"/media/yagitudeh/WORK/www/enet/app/asset/js/ext-library.min.compiled.js",
 		"/home/juji/.config/sublime-text-3/Packages/User/Side Bar.sublime-settings",
 		"/media/yagitudeh/WORK/www/enet/subscribe/server.js",
-		"/home/juji/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/juji/.config/sublime-text-3/Packages/User/Terminal.sublime-settings",
 		"/media/yagitudeh/WORK/www/enet/savegit",
 		"/media/yagitudeh/WORK/www/enet/subscribe/.gitignore",
@@ -497,13 +491,7 @@
 		"/media/yagitudeh/WORK/www/enet/php-error.log",
 		"/media/yagitudeh/WORK/www/enet/subscribe/index.js",
 		"/media/yagitudeh/WORK/www/enet/subscribe/index.php",
-		"/media/yagitudeh/WORK/www/enet/subscribe/node_modules/socket.io/node_modules/socket.io-client/socket.io.js",
-		"/media/yagitudeh/WORK/www/enet/subscribe/Procfile",
-		"/media/yagitudeh/WORK/www/enet/subscribe/.openshift/action_hooks/pre_build",
-		"/media/yagitudeh/WORK/www/enet/subscribe/.openshift/action_hooks/README.md",
-		"/media/yagitudeh/WORK/www/enet/subscribe/node_modules/socket.io/lib/client.js",
-		"/media/yagitudeh/WORK/www/enet/subscribe/node_modules/socket.io/node_modules/socket.io-client/index.js",
-		"/media/yagitudeh/WORK/www/cmsbaru/admin/classes/Router.php"
+		"/media/yagitudeh/WORK/www/enet/subscribe/node_modules/socket.io/node_modules/socket.io-client/socket.io.js"
 	],
 	"find":
 	{
@@ -521,6 +509,15 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"describe.skip",
+			"describe('#",
+			"proxy1",
+			"options.",
+			"urlParse",
+			"describe.skip",
+			"(){\n",
+			"describe('#",
+			".skip",
 			"this.request",
 			"http.send",
 			"header",
@@ -639,16 +636,7 @@
 			"api/Page",
 			"page_",
 			"savebtn",
-			"dropped",
-			"p",
-			"$column",
-			"getValues",
-			"}\n",
-			"$d",
-			"clean",
-			"Error::fatal",
-			"$e",
-			"id"
+			"dropped"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -656,6 +644,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"describe",
+			"describe.skip('#",
+			"describe",
+			"describe.skip('#",
+			"",
 			"this.req",
 			"http.req",
 			"http.request",
@@ -773,7 +766,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -782,15 +775,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6575,
+						"buffer_size": 7575,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6213,
-								6213
+								7400,
+								7400
 							]
 						],
 						"settings":
@@ -799,56 +792,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2244.0,
+						"translation.y": 4487.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "test/tests.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3150,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3028,
-								3028
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2363.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "package.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 773,
+						"buffer_size": 890,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								277,
-								277
+								301,
+								301
 							]
 						],
 						"settings":
@@ -861,7 +825,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "test/tests.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3817,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3254,
+								3254
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 2856.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -889,7 +882,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -898,15 +891,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4661,
+						"buffer_size": 5158,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								549,
-								549
+								498,
+								498
 							]
 						],
 						"settings":
@@ -915,67 +908,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/media/yagitudeh/WORK/www/test/testpost.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 738,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								715,
-								715
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/media/yagitudeh/WORK/www/test/post.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 486,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								50,
-								50
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
