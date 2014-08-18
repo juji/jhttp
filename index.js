@@ -10,7 +10,7 @@ var mime = require('mime');
 var CookieManager = require('cookie-manager');
 var concatStream = require('concat-stream')
 var zlib = require('zlib');
-var passStream = require('pass-stream');
+var passStream = require('stream').PassThrough;
 
 var normalizeUrl = function(str){
 	if(/^https\:\/\//.test(str)) return str;
