@@ -131,7 +131,7 @@
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 890,
+				"buffer_size": 861,
 				"line_ending": "Unix"
 			}
 		},
@@ -766,7 +766,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -782,8 +782,8 @@
 						"selection":
 						[
 							[
-								7400,
-								7400
+								7254,
+								7254
 							]
 						],
 						"settings":
@@ -792,10 +792,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4487.0,
+						"translation.y": 4539.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -804,7 +804,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 890,
+						"buffer_size": 861,
 						"regions":
 						{
 						},
@@ -825,7 +825,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -841,8 +841,8 @@
 						"selection":
 						[
 							[
-								3254,
-								3254
+								3407,
+								3407
 							]
 						],
 						"settings":
@@ -850,11 +850,11 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 2856.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
