@@ -57,10 +57,9 @@ httpClient.request( options );
 {
 	url:'',
 	method:'get',
-	accept: '*/*',
+	accept: 'text/html, text/plain, application/json, */*',
 	output: 'string',
 	expect:200,
-	charset: 'UTF-8',
 	followRedirect: true,
 	useCookie: true,
 	auth:'',

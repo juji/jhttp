@@ -47,7 +47,7 @@ var extendObj = function(){
 var defaultOpts = {
 	url:'',
 	method:'get',
-	accept: '*/*',
+	accept: 'text/html, text/plain, application/json, */*',
 	output: 'string',
 	expect:200,
 	charset: 'UTF-8',
