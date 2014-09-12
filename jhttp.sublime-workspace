@@ -123,7 +123,7 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 7575,
+				"buffer_size": 7740,
 				"line_ending": "Unix"
 			}
 		},
@@ -775,15 +775,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7575,
+						"buffer_size": 7740,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7254,
-								7254
+								7032,
+								7032
 							]
 						],
 						"settings":

@@ -4,7 +4,6 @@ var fs = require('fs');
 var q = require('q');
 var ua = require('random-ua');
 var urlParse = require('url');
-var encoding = require('encoding');
 var cheerio = require('cheerio');
 var mime = require('mime');
 var CookieManager = require('cookie-manager');
@@ -269,17 +268,18 @@ jhttp.prototype.request = function(obj){
 		////////////////////////////
 		res.pipe( contentEncoding ? zlib.createUnzip() : passStream() )
 		.pipe(concatStream(function(b){
-			if( obj.charset != charset )
-			b = encoding.convert( b , obj.charset,  charset);
+			
+			b = require('utf8').encode(b.toString());
+
 			var r = { 
 				status: res.statusCode,
 				headers: res.headers,
 				body: b
 			}
 
-			if( obj.output == 'string' ) r.body = r.body.toString();
-			if( obj.output == 'json' ) r.body = JSON.parse(r.body.toString());
-			if( obj.output == '$' ) r.body = cheerio.load(r.body.toString());
+			if( obj.output == 'buffer' ) r.body = new Buffer(r.body);
+			if( obj.output == 'json' ) r.body = JSON.parse(r.body);
+			if( obj.output == '$' ) r.body = cheerio.load(r.body);
 
 			delete obj;
 

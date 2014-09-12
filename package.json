@@ -30,9 +30,9 @@
     "cheerio": "^0.17.0",
     "concat-stream": "^1.4.6",
     "cookie-manager": "0.0.14",
-    "encoding": "^0.1.8",
     "mime": "^1.2.11",
     "q": "^1.0.1",
-    "random-ua": "0.0.4"
+    "random-ua": "0.0.4",
+    "utf8": "^2.0.0"
   }
 }
