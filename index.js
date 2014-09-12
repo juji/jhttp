@@ -256,10 +256,6 @@ jhttp.prototype.request = function(obj){
 		if(typeof res.headers['set-cookie'] != 'undefined'){
 			t.cookies.store( url.href, res.headers['set-cookie'] );
 		}
-
-		//read charset
-		var charset = res.headers['content-type'].match('charset=(.*?)(;|$)');
-		charset = charset && charset.length > 1 ? charset[1] : 'UTF-8';
 		
 		//read encoding
 		var contentEncoding = typeof res.headers['content-encoding'] == 'undefined' ? '' : res.headers['content-encoding'];

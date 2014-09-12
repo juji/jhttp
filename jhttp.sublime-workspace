@@ -123,7 +123,7 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 7740,
+				"buffer_size": 7689,
 				"line_ending": "Unix"
 			}
 		},
@@ -131,7 +131,7 @@
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 861,
+				"buffer_size": 857,
 				"line_ending": "Unix"
 			}
 		},
@@ -155,7 +155,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 5158,
+				"buffer_size": 5180,
 				"line_ending": "Unix"
 			}
 		}
@@ -775,15 +775,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7740,
+						"buffer_size": 7689,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7032,
-								7032
+								1178,
+								1178
 							]
 						],
 						"settings":
@@ -791,8 +791,8 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 4539.0,
+						"translation.x": -0.0,
+						"translation.y": 561.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -804,7 +804,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 861,
+						"buffer_size": 857,
 						"regions":
 						{
 						},
@@ -825,7 +825,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -854,7 +854,7 @@
 						"translation.y": 2856.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -891,15 +891,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5158,
+						"buffer_size": 5180,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								498,
-								498
+								1143,
+								1143
 							]
 						],
 						"settings":
@@ -908,10 +908,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1021,7 +1021,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 294.0,
+	"side_bar_width": 206.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
