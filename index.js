@@ -164,7 +164,9 @@ var jhttp = function(obj){
 };
 
 jhttp.prototype.abort = function(){
+	if(this.req.toString() == '[Object Promise]') return false;
 	this.req.abort();
+	return true;
 }
 
 jhttp.prototype.request = function(obj){
@@ -248,7 +250,7 @@ jhttp.prototype.request = function(obj){
 
 		if( res.statusCode != obj.expect && isRedirection(res.statusCode) && obj.followRedirect) {
 			obj.url = res.headers['location'];
-			d.resolve( t.req = t.request( obj ) );
+			d.resolve( t.request( obj ) );
 			return;
 		}
 
