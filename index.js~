@@ -4,7 +4,6 @@ var fs = require('fs');
 var q = require('q');
 var ua = require('random-ua');
 var urlParse = require('url');
-var encoding = require('encoding');
 var cheerio = require('cheerio');
 var mime = require('mime');
 var CookieManager = require('cookie-manager');
@@ -48,7 +47,7 @@ var extendObj = function(){
 var defaultOpts = {
 	url:'',
 	method:'get',
-	accept: '*/*',
+	accept: 'text/html, text/plain, application/json, */*',
 	output: 'string',
 	expect:200,
 	charset: 'UTF-8',
@@ -165,7 +164,9 @@ var jhttp = function(obj){
 };
 
 jhttp.prototype.abort = function(){
+	if(this.req.toString() == '[Object Promise]') return false;
 	this.req.abort();
+	return true;
 }
 
 jhttp.prototype.request = function(obj){
@@ -189,8 +190,8 @@ jhttp.prototype.request = function(obj){
 	var dataCons = '';
 	var headers = constructHeaders(obj);
 
-	if(headers['Accept']=='*/*' && obj.output == 'json')headers['Accept']='application/json';
-	if(headers['Accept']=='*/*' && obj.output == '$')headers['Accept']='text/html';
+	if(headers['Accept']=='text/html, text/plain, application/json, */*' && obj.output == 'json')headers['Accept']='application/json';
+	if(headers['Accept']=='text/html, text/plain, application/json, */*' && obj.output == '$')headers['Accept']='text/html';
 
 	if(obj.data && obj.method!='get'){
 		headers['Content-Type'] = getContentType(obj.data);
@@ -249,7 +250,7 @@ jhttp.prototype.request = function(obj){
 
 		if( res.statusCode != obj.expect && isRedirection(res.statusCode) && obj.followRedirect) {
 			obj.url = res.headers['location'];
-			d.resolve( t.req = t.request( obj ) );
+			d.resolve( t.request( obj ) );
 			return;
 		}
 
@@ -257,10 +258,6 @@ jhttp.prototype.request = function(obj){
 		if(typeof res.headers['set-cookie'] != 'undefined'){
 			t.cookies.store( url.href, res.headers['set-cookie'] );
 		}
-
-		//read charset
-		var charset = res.headers['content-type'].match('charset=(.*?)(;|$)');
-		charset = charset && charset.length > 1 ? charset[1] : 'UTF-8';
 		
 		//read encoding
 		var contentEncoding = typeof res.headers['content-encoding'] == 'undefined' ? '' : res.headers['content-encoding'];
@@ -269,17 +266,18 @@ jhttp.prototype.request = function(obj){
 		////////////////////////////
 		res.pipe( contentEncoding ? zlib.createUnzip() : passStream() )
 		.pipe(concatStream(function(b){
-			if( obj.charset != charset )
-			b = encoding.convert( b , obj.charset,  charset);
+			
+			b = require('utf8').encode(b.toString());
+
 			var r = { 
 				status: res.statusCode,
 				headers: res.headers,
 				body: b
 			}
 
-			if( obj.output == 'string' ) r.body = r.body.toString();
-			if( obj.output == 'json' ) r.body = JSON.parse(r.body.toString());
-			if( obj.output == '$' ) r.body = cheerio.load(r.body.toString());
+			if( obj.output == 'buffer' ) r.body = new Buffer(r.body);
+			if( obj.output == 'json' ) r.body = JSON.parse(r.body);
+			if( obj.output == '$' ) r.body = cheerio.load(r.body);
 
 			delete obj;
 

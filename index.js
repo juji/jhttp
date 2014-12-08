@@ -10,6 +10,7 @@ var CookieManager = require('cookie-manager');
 var concatStream = require('concat-stream')
 var zlib = require('zlib');
 var passStream = require('stream').PassThrough;
+var iconv = require('iconv').Iconv;
 
 var normalizeUrl = function(str){
 	if(/^https\:\/\//.test(str)) return str;
@@ -31,7 +32,8 @@ var extendObj = function(){
 	var v = {};
 	for(var i in arguments){
 		for(var j in arguments[i]){
-			if(arguments[i][j].constructor == Array){
+			if(typeof arguments[i][j]=='undefined') continue;
+			else if(arguments[i][j].constructor == Array){
 				v[j] = extendArray(arguments[i][j]);
 			}else if(typeof arguments[i][j] == 'object'){
 				v[j] = extendObj(arguments[i][j]);
@@ -89,6 +91,9 @@ function constructHeaders(obj){
 
 	if( typeof c['accept-charset'] == 'undefined' ) c['accept-charset'] = charset;
 	if( typeof c['accept'] == 'undefined' ) c['accept'] = accept;
+
+	//prevent header pattern recognizer (if there is such a thing)
+	c['x-http-h'+Math.round(Math.random()*892374)] = Math.round(Math.random()*892374);
 
 	return upperCaseKeys(c);
 }
@@ -158,6 +163,8 @@ var jhttp = function(obj){
 
 	this.cookies = new CookieManager();
 
+	this.last = false;
+
 	if(obj && typeof obj == 'object') this.options = extendObj(this.options,obj);
 	if(obj && typeof obj == 'string') this.options.url = normalizeUrl(obj);
 
@@ -171,6 +178,7 @@ jhttp.prototype.abort = function(){
 
 jhttp.prototype.request = function(obj){
 
+	if(!obj) obj = {};
 	if(obj && typeof obj == 'object') obj = extendObj(this.options,obj);
 	if(obj && typeof obj == 'string') {
 		var url = obj;
@@ -183,7 +191,7 @@ jhttp.prototype.request = function(obj){
 	if(!obj) obj = extendObj(this.options);
 
 	var url = urlParse.parse(obj.url);
-	var d = q.defer();
+	var dhttp = q.defer();
 
 	// prepare data and headers
 	var bound = getBound();
@@ -192,7 +200,6 @@ jhttp.prototype.request = function(obj){
 
 	if(headers['Accept']=='*/*' && obj.output == 'json')headers['Accept']='application/json';
 	if(headers['Accept']=='*/*' && obj.output == '$')headers['Accept']='text/html';
-
 	if(obj.data && obj.method!='get'){
 		headers['Content-Type'] = getContentType(obj.data);
 		if(headers['Content-Type'] == 'multipart/form-data')
@@ -218,6 +225,7 @@ jhttp.prototype.request = function(obj){
 	if(url.port) opt.port = url.port;
 	if(obj.auth) opt.auth = obj.auth;
 
+
 	//set opts for proxy
 	if(obj.proxy){
 		var proxy = urlParse.parse(obj.proxy, false);
@@ -234,14 +242,22 @@ jhttp.prototype.request = function(obj){
 		for(var i in obj.ssl) opt[i] = obj.ssl[i];
 	}
 
+	//encoding stuff
+	opt.encoding=null;
+	
+	//store last request
+	this.last = obj;
+
 	// start request
 	var t = this;
 	this.req = (opt.protocol=='https:'?https:http).request(opt,function(res){
 
+		//console.log('responded');
+
 		//read status
 		if( obj.expect && res.statusCode != obj.expect && !isRedirection(res.statusCode)) {
 			delete obj;
-			d.reject({
+			dhttp.reject({
 				status: res.statusCode,
 				text: 'Unexpected HTTP Status'
 			});
@@ -250,7 +266,7 @@ jhttp.prototype.request = function(obj){
 
 		if( res.statusCode != obj.expect && isRedirection(res.statusCode) && obj.followRedirect) {
 			obj.url = res.headers['location'];
-			d.resolve( t.request( obj ) );
+			dhttp.resolve( t.request( obj ) );
 			return;
 		}
 
@@ -262,42 +278,94 @@ jhttp.prototype.request = function(obj){
 		//read encoding
 		var contentEncoding = typeof res.headers['content-encoding'] == 'undefined' ? '' : res.headers['content-encoding'];
 		contentEncoding = contentEncoding=='identity' ? false : contentEncoding;
-		
+
+		var charset = '';
+		if(
+			typeof res.headers['content-type'] != 'undefined' &&
+			(charset = res.headers['content-type'].match(/charset\=(.+)/))
+		){
+			charset = charset[1];
+		}else charset = 'ISO-8859-1';
+
+		charset = charset.toLowerCase();
+		//if(charset=='utf-8') res.setEncoding('utf8');
+
 		////////////////////////////
-		res.pipe( contentEncoding ? zlib.createUnzip() : passStream() )
-		.pipe(concatStream(function(b){
-			
-			b = require('utf8').encode(b.toString());
+		//contentEncoding ? zlib.createUnzip() : passStream()
+		//console.log(res.headers);
+		//console.log('charset: '+charset);
+		res.pipe(concatStream(function(b){
 
-			var r = { 
-				status: res.statusCode,
-				headers: res.headers,
-				body: b
-			}
+			var decompress = contentEncoding ? zlib.unzip : function(a,f){ f(false,a); };
+			decompress(b,function(e,result){
+				if(e){
+					if(contentEncoding=='deflate'){
+						zlib.inflateRaw(b,function(er,buff){
+							if(er) dhttp.reject( er );
+							else {
+								try{
+									dhttp.resolve(parseResponse(buff,charset,res,obj));
+								}catch(e){ dhttp.reject(e); }
+							}
+						});
+					}
+					else {
+						dhttp.reject( e );
+					}
+				}else{
+					try{
+						dhttp.resolve(parseResponse(result,charset,res,obj));
+					}catch(e){ dhttp.reject(e); }
+				}
+			});
 
-			if( obj.output == 'buffer' ) r.body = new Buffer(r.body);
-			if( obj.output == 'json' ) r.body = JSON.parse(r.body);
-			if( obj.output == '$' ) r.body = cheerio.load(r.body);
-
-			delete obj;
-
-			d.resolve( r );
 		}));
 
 	});
+	//console.log('sent request');
 
 	this.req.on('error', function(e) {
 		delete obj;
-		d.reject({ status:0, text: e });
+		dhttp.reject({ status:0, text: e });
 	});
 
+	//console.log('end request');
 	// send data if any
 	if(dataCons && obj.method != 'get')
 	this.req.write( dataCons );
 	
 	this.req.end();
 
-	return d.promise;
-}
+	//console.log('wait response');
+	return dhttp.promise;
+};
+
+var parseResponse = function(b,charset,res,obj){
+	try{
+		if(charset!='utf-8') b = (new iconv(charset, 'utf-8')).convert(b);
+	}catch(e){}
+
+	var r = { 
+		status: res.statusCode,
+		headers: res.headers,
+		body: b.toString()
+	}
+
+	if( obj.output == 'buffer' ) r.body = new Buffer(r.body);
+	if( obj.output == 'json' ) {
+		try{
+			r.body = JSON.parse(r.body);
+		}catch(e){
+			throw new Error('jHttp > cannnot parse JSON');
+			return false;
+		}
+		
+	}
+	if( obj.output == '$' ) r.body = cheerio.load(r.body);
+	delete obj;
+	return r;
+
+};
 
 module.exports = exports = function(opt){ return new jhttp(opt) };
+
