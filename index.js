@@ -368,4 +368,3 @@ var parseResponse = function(b,charset,res,obj){
 };
 
 module.exports = exports = function(opt){ return new jhttp(opt) };
-
