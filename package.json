@@ -1,6 +1,6 @@
 {
   "name": "jhttp-client",
-  "version": "0.0.21",
+  "version": "0.1.0",
   "description": "Promise-based http client for node.js",
   "main": "index.js",
   "scripts": {
