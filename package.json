@@ -33,7 +33,7 @@
   "dependencies": {
     "cheerio": "^0.17.0",
     "concat-stream": "^1.4.6",
-    "cookie-manager": "0.0.14",
+    "cookie-manager": "0.0.15",
     "iconv": "^2.1.4",
     "mime": "^1.2.11",
     "q": "^1.0.1",
