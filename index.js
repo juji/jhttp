@@ -340,8 +340,11 @@ jhttp.prototype.request = function(obj){
 var parseResponse = function(b,charset,res,obj){
 
 	if(!charset){
-		var ff = b.toString().match(/http-equiv\="content-type"\ content\="[^\;]+\;\ charset\=([^"]+)"/);
+		var sss = b.toString();
+		var ff = sss.match(/http-equiv\="content-type"\ content\="[^\;]+\;\ charset\=([^"]+)"/);
+		var gg = sss.match(/<meta charset\="([^"]+)"/);
 		if(ff && ff.length>1) charset = ff[1];
+		else if(gg && gg.length>1) charset = gg[1];
 	}
 	
 	charset = charset.toLowerCase();
