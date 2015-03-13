@@ -64,7 +64,7 @@ var defaultOpts = {
 		'user-agent': ua.generate()
 	},
 	data: false
-}
+};
 
 function lowerCaseKeys(c){
 	var t = {};
@@ -174,7 +174,7 @@ jhttp.prototype.abort = function(){
 	if(this.req.toString() == '[Object Promise]') return false;
 	this.req.abort();
 	return true;
-}
+};
 
 jhttp.prototype.request = function(obj){
 
@@ -283,11 +283,8 @@ jhttp.prototype.request = function(obj){
 		if(
 			typeof res.headers['content-type'] != 'undefined' &&
 			(charset = res.headers['content-type'].match(/charset\=(.+)/))
-		){
-			charset = charset[1];
-		}else charset = 'ISO-8859-1';
+		) charset = charset[1];
 
-		charset = charset.toLowerCase();
 		//if(charset=='utf-8') res.setEncoding('utf8');
 
 		////////////////////////////
@@ -341,8 +338,18 @@ jhttp.prototype.request = function(obj){
 };
 
 var parseResponse = function(b,charset,res,obj){
+
+	if(!charset){
+		var ff = b.toString().match(/http-equiv\="content-type"\ content\="[^\;]+\;\ charset\=([^"]+)"/);
+		if(ff && ff.length>1) charset = ff[1];
+	}
+	
+	charset = charset.toLowerCase();
+
 	try{
-		if(charset!='utf-8') b = (new iconv(charset, 'utf-8')).convert(b);
+		var ss = '';
+		if(charset!='utf-8' && charset) ss = (new iconv(charset, 'utf-8')).convert(b);
+		if(ss) b = ss;
 	}catch(e){}
 
 	var r = { 

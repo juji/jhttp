@@ -14,14 +14,20 @@ describe('#http',function(){
 	it('should fetch something',function(){
 
 		return http.request({
-			url:'http://www.atmospherediscos.com.au/'
+			url:'http://www.worldcitydb.com/mongolia_country.aspx',
+			output:'$'
 		}).then(function( resp ){
 
-			console.log(resp.body)
+			//console.log(resp.body)
+			//require('fs').createWriteStream('ooo').write(resp.body).end();
+			resp.body('a').each(function(){
+				console.log(resp.body(this).attr('href'));
+			});
 			return q.all([
 				resp.status.should.equal( 200 ),
 				resp.headers.should.be.an( 'object' )
 			]);
+
 
 		});
 		
