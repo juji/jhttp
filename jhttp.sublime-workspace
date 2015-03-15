@@ -123,7 +123,7 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 9215,
+				"buffer_size": 9500,
 				"line_ending": "Unix"
 			}
 		},
@@ -131,15 +131,7 @@
 			"file": "test/tests.js",
 			"settings":
 			{
-				"buffer_size": 3912,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 6705,
+				"buffer_size": 4100,
 				"line_ending": "Unix"
 			}
 		},
@@ -365,10 +357,12 @@
 	"expanded_folders":
 	[
 		"/media/files/work/repo/jhttp",
+		"/media/files/work/repo/jhttp/node_modules",
 		"/media/files/work/repo/jhttp/test"
 	],
 	"file_history":
 	[
+		"/media/files/work/repo/jhttp/index.js~",
 		"/media/files/work/repo/jhttp/package.json",
 		"/media/yagitudeh/WORK/www/juji/testcookie.php",
 		"/media/yagitudeh/WORK/node/upload/client.js",
@@ -495,8 +489,7 @@
 		"/media/yagitudeh/WORK/www/enet/subscribe/.openshift/action_hooks/deploy",
 		"/media/yagitudeh/WORK/www/enet/api/_includes.php",
 		"/media/yagitudeh/WORK/www/enet/php-error.log",
-		"/media/yagitudeh/WORK/www/enet/subscribe/index.js",
-		"/media/yagitudeh/WORK/www/enet/subscribe/index.php"
+		"/media/yagitudeh/WORK/www/enet/subscribe/index.js"
 	],
 	"find":
 	{
@@ -514,6 +507,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"ff",
 			"iconv",
 			"describe.skip",
 			"describe('#",
@@ -640,8 +634,7 @@
 			"page/:",
 			"Page::",
 			"api/Page",
-			"page_",
-			"savebtn"
+			"page_"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -771,7 +764,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -780,15 +773,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9215,
+						"buffer_size": 9500,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								57,
-								57
+								8600,
+								8600
 							]
 						],
 						"settings":
@@ -797,10 +790,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 5625.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -809,15 +802,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3912,
+						"buffer_size": 4100,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								193,
-								193
+								223,
+								223
 							]
 						],
 						"settings":
@@ -834,36 +827,6 @@
 				},
 				{
 					"buffer": 2,
-					"file": "package.json",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 6705,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								107,
-								107
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": ".gitignore",
 					"semi_transient": false,
 					"settings":
@@ -887,11 +850,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "README.md",
 					"semi_transient": false,
 					"settings":
@@ -916,7 +879,7 @@
 						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
