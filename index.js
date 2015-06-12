@@ -10,7 +10,7 @@ var CookieManager = require('cookie-manager');
 var concatStream = require('concat-stream')
 var zlib = require('zlib');
 var passStream = require('stream').PassThrough;
-var iconv = require('iconv').Iconv;
+var iconv = require('iconv-lite');
 
 var normalizeUrl = function(str){
 	if(/^https\:\/\//.test(str)) return str;
@@ -225,7 +225,6 @@ jhttp.prototype.request = function(obj){
 	if(url.port) opt.port = url.port;
 	if(obj.auth) opt.auth = obj.auth;
 
-
 	//set opts for proxy
 	if(obj.proxy){
 		var proxy = urlParse.parse(obj.proxy, false);
@@ -359,14 +358,21 @@ var parseResponse = function(b,charset,res,obj){
 
 	try{
 		var ss = '';
-		if(charset!='utf-8' && charset) ss = (new iconv(charset, 'utf-8')).convert(b);
+		if(
+			charset!='utf-8' && 
+			charset &&
+			iconv,encodingExists(charset)
+		) ss = iconv.decode(b,charset);
+		else ss = b.toString();
 		if(ss) b = ss;
-	}catch(e){}
+	}catch(e){
+		b = b.toString();
+	}
 
 	var r = { 
 		status: res.statusCode,
 		headers: res.headers,
-		body: b.toString()
+		body: b
 	}
 
 	if( obj.output == 'buffer' ) r.body = new Buffer(r.body);
