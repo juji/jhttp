@@ -4,7 +4,7 @@ node.js promise-based http client
 
 ##features
 - HTTP & HTTPS
-- GET, POST, PUT, DELETE, HEAD
+- GET, POST, PUT, DELETE, HEAD, PATCH
 - built-in [cookie manager](https://www.npmjs.org/package/cookie-manager)
 - return string as response `body`
 - return jQuery like object as response `body` ([cheerio](https://www.npmjs.org/package/cheerio))
@@ -34,6 +34,8 @@ httpClient.request("google.com")
 .fail(function( response ){
 	
 	console.log(response.status);
+	console.log(response.headers);
+	console.log(response.body);
 	console.log(response.text);
 
 });
@@ -55,30 +57,36 @@ httpClient.request( options );
 ###`options` [object]
 ```javascript
 {
-	url:'',
-	method:'get',
-	accept: 'text/html, text/plain, application/json, */*',
-	output: 'string',
-	expect:200,
-	followRedirect: true,
-	useCookie: true,
-	auth:'',
-	proxy:'',
-	ssl:{
-		rejectUnauthorized: false
+	auth               : '',
+	accept             : 'text/html, text/plain, application/json, */*',
+	output             : 'string',
+	expect             : 200,
+	followRedirect     : true,
+	useCookie          : true,
+	method             : "get",
+	url                : "example.com",
+	data               : false,
+	charset			   : "utf-8",
+	proxy              : '',
+	ssl                : {
+		rejectUnauthorized : false,
 	},
-	headers:{
-		'user-agent': ua.generate()
+	headers            : {
+		'user-agent'       : '',
+		'Accept-Encoding'  : 'gzip;q=0.9, deflate;q=0.5, identity;q=0.2'
 	},
-	data: false
+	agent 			   : {
+		keepAlive          : true
+	},
+	log 			   : false
 }
 
 // above are the default values
 ```
 
-**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com".
+**`options.method`** "get", "post", "put", "delete", "head", "patch".
 
-**`options.method`** "get", "post", "put", "delete", "head".
+**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com".
 
 **`options.accept`** will be used in `Accept` headers.
 
@@ -112,7 +120,7 @@ httpClient.request( options );
 
 **`options.headers["accept-charset"]`** will override **`options.charset`**.
 
-- `options.headers["accept-encoding"]` will always be `gzip, deflate, identity`.
+- `accept-encoding` headers will always be `gzip;q=0.9, deflate;q=0.5, identity;q=0.2`, unless overriden with `options.headers["accept-encoding"]`.
 
 ---
 
@@ -215,9 +223,16 @@ You can construct everything yourself:
 	content: '<some>XML</some>'
 }
 ```
+Or, using stream:
+```javascript
+{
+	type : 'text/csv',
+	filename: '/home/some/path/file.csv'
+}
+```
 Remember that using `options.data.type` will override `Content-Type` header.
 
-Use it only to send strings with `options.data.content`, unless you know what you're doing..
+Use it only to send strings with `options.data.content` or `options.data.filename`, unless you know what you're doing..
 
 
 

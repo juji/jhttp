@@ -123,7 +123,7 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 9500,
+				"buffer_size": 9606,
 				"line_ending": "Unix"
 			}
 		},
@@ -131,7 +131,7 @@
 			"file": "test/tests.js",
 			"settings":
 			{
-				"buffer_size": 4100,
+				"buffer_size": 4065,
 				"line_ending": "Unix"
 			}
 		},
@@ -153,9 +153,14 @@
 		}
 	],
 	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 400.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -357,11 +362,11 @@
 	"expanded_folders":
 	[
 		"/media/files/work/repo/jhttp",
-		"/media/files/work/repo/jhttp/node_modules",
 		"/media/files/work/repo/jhttp/test"
 	],
 	"file_history":
 	[
+		"/media/files/work/projects/bridestory/stuff/AOS/mysql.credentials.txt",
 		"/media/files/work/repo/jhttp/index.js~",
 		"/media/files/work/repo/jhttp/package.json",
 		"/media/yagitudeh/WORK/www/juji/testcookie.php",
@@ -488,8 +493,7 @@
 		"/media/yagitudeh/WORK/www/enet/api/index.php",
 		"/media/yagitudeh/WORK/www/enet/subscribe/.openshift/action_hooks/deploy",
 		"/media/yagitudeh/WORK/www/enet/api/_includes.php",
-		"/media/yagitudeh/WORK/www/enet/php-error.log",
-		"/media/yagitudeh/WORK/www/enet/subscribe/index.js"
+		"/media/yagitudeh/WORK/www/enet/php-error.log"
 	],
 	"find":
 	{
@@ -507,6 +511,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			".skip(",
+			"iconv",
 			"ff",
 			"iconv",
 			"describe.skip",
@@ -632,9 +638,7 @@
 			"imagegrid",
 			"pages.created",
 			"page/:",
-			"Page::",
-			"api/Page",
-			"page_"
+			"Page::"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -642,6 +646,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"(",
 			"describe",
 			"describe.skip('#",
 			"describe",
@@ -773,24 +778,83 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9500,
+						"buffer_size": 9606,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8600,
-								8600
+								4791,
+								4791
 							]
 						],
 						"settings":
 						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5625.0,
+						"translation.y": 2592.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -802,15 +866,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4100,
+						"buffer_size": 4065,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								223,
-								223
+								224,
+								224
 							]
 						],
 						"settings":
@@ -819,10 +883,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -850,7 +914,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -879,7 +943,7 @@
 						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -924,6 +988,7 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "",
 	"project": "jhttp.sublime-project",
 	"replace":
 	{
@@ -933,6 +998,7 @@
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -969,6 +1035,7 @@
 	"select_project":
 	{
 		"height": 500.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -977,6 +1044,7 @@
 	"select_symbol":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],

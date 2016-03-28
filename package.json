@@ -1,49 +1,33 @@
 {
   "name": "jhttp-client",
-  "version": "0.1.8",
-  "description": "Promise-based http client for node.js",
+  "version": "1.0.0",
+  "description": "node.js promise-based http client",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.5.0",
+    "cheerio": "^0.20.0",
+    "cookie-manager": "0.0.16",
+    "iconv-lite": "^0.4.13",
+    "lzw-stream": "^1.0.0",
+    "mime": "^1.3.4",
+    "q": "^1.4.1",
+    "q-io": "^1.13.2",
+    "stream-que": "^1.0.1",
+    "user-agent-string-generator": "0.0.2"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.0",
+    "compression-zlib": "^2.3.0",
+    "express": "^4.13.4",
+    "mocha": "^2.4.5",
+    "multer": "^1.1.0"
+  },
   "scripts": {
     "test": "mocha"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:juji/jhttp-client.git"
-  },
-  "keywords": [
-    "node",
-    "http",
-    "client"
-  ],
-  "author": {
-    "name": "juji",
-    "email": "jujiyangasli@gmail.com",
-    "url": "http://jujiyangasli.com/"
-  },
-  "license": "Apache2",
-  "bugs": {
-    "url": "https://github.com/juji/jhttp-client/issues"
-  },
-  "homepage": "https://github.com/jhttp-client/jhttp",
-  "devDependencies": {
-    "chai": "^1.9.1",
-    "chai-as-promised": "^4.1.1",
-    "mocha": "^1.21.4"
-  },
-  "dependencies": {
-    "cheerio": "^0.17.0",
-    "concat-stream": "^1.4.6",
-    "cookie-manager": "0.0.16",
-    "iconv-lite": "^0.4.10",
-    "mime": "^1.2.11",
-    "q": "^1.0.1",
-    "random-ua": "0.0.4",
-    "utf8": "^2.0.0"
-  },
-  "readme": "#jhttp-client\n\nnode.js promise-based http client\n\n##features\n- HTTP & HTTPS\n- GET, POST, PUT, DELETE, HEAD\n- built-in [cookie manager](https://www.npmjs.org/package/cookie-manager)\n- return string as response `body`\n- return jQuery like object as response `body` ([cheerio](https://www.npmjs.org/package/cheerio))\n- return json object as response `body`\n- return buffer as response `body`\n- support file upload or other arbitrary HTTP data transfer\n\n##install\n```javascript\nnpm install jhttp-client\n```\n\n##usage\n```javascript\n\nvar HTTPC = require(\"jhttp-client\");\nvar httpClient = HTTPC();\n\nhttpClient.request(\"google.com\")\n.then(function( response ){\n\t\n\tconsole.log(response.status);\n\tconsole.log(response.headers);\n\tconsole.log(response.body);\t\t\n\n})\n.fail(function( response ){\n\t\n\tconsole.log(response.status);\n\tconsole.log(response.text);\n\n});\n\n```\n\n---\n\n##Options\n```javascript\n// global options\nvar httpClient = HTTPC( options );\n\n// per-request options\n// will extend global options\nhttpClient.request( options );\n```\n\n###`options` [object]\n```javascript\n{\n\turl:'',\n\tmethod:'get',\n\taccept: 'text/html, text/plain, application/json, */*',\n\toutput: 'string',\n\texpect:200,\n\tfollowRedirect: true,\n\tuseCookie: true,\n\tauth:'',\n\tproxy:'',\n\tssl:{\n\t\trejectUnauthorized: false\n\t},\n\theaders:{\n\t\t'user-agent': ua.generate()\n\t},\n\tdata: false\n}\n\n// above are the default values\n```\n\n**`options.url`** \"http://domain.com/path\" or \"https://domain.com\" or \"domain.com\".\n\n**`options.method`** \"get\", \"post\", \"put\", \"delete\", \"head\".\n\n**`options.accept`** will be used in `Accept` headers.\n\n- `options.accept = \"*/*\"` will be overriden by <br />`options.output = \"json\"` or `options.output = \"$\"`.\n\n**`options.output`** \"string\", \"buffer\", \"json\", \"$\". The `$` will output jQuery-like object.\n\n- `options.output = \"json\"` will change `options.accept` from `*/*` to `application/json`.\n\n- `options.output = \"$\"` will change `options.accept` from `*/*` to `text/html`.\n\n**`options.expect`** HTTP status to expect. Will *reject* the *promise* if not fulfilled.\n\n- Use `options.expect = false` to accept every HTTP status\n\n**`options.charset`** will be used in `Accept` and `Accept-Charset` headers.\n\n**`options.followRedirect`**. If `true`, will not *reject* the *promise* on redirect status (3**).\n\n**`options.useCookie`** will save cookie and use them for future requests with the same domain.\n\n- `options.useCookie` Will be overriden by `options.headers.cookie` value.\n\n**`options.auth`** basic HTTP auth: \"user:password\".\n\n**`options.proxy`** To make request through a proxy, i.e. http://123.345.543.234:8080\n\n**`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).\n\n**`options.headers.accept`** will override **`options.accept`** regardless of **`options.output`**.\n\n**`options.headers[\"accept-charset\"]`** will override **`options.charset`**.\n\n- `options.headers[\"accept-encoding\"]` will always be `gzip, deflate, identity`.\n\n---\n\n##Data Transfer\n\nUse `options.data` object to transfer data. Below are some example of data transfers.\n\n**NOTE:** `GET` request will not use the `options.data` attribute.\n\n####HTML form upload\nThe following will create an `application/x-www-form-urlencoded` data transfer:\n```javascript\n{\n\tcontent:{\n\t\tname: 'JohnDoe',\n\t\toccupation: 'Awesome Staff'\n\t}\n}\n```\n\nWill create:\n```text\nPOST /path HTTP/1.1\nHost: domain.com\nContent-Type: application/x-www-form-urlencoded\nContent-Length: 39\n\nname=JohnDoe&occupation=Awesome%20Staff\n```\n\nA `multipart/form-data` data transfer can also be created:\n```javascript\n{\n\tcontent: {\n\t\t\tname: 'JohnDoe',\n\t\t\toccupation: 'Awesome Staff'\n\t},\n\tfile:[\n\t\t{ \n\t\t\t// will read the file and send it\n\t\t\tname:'uploaded1',\n\t\t\tfilename: 'some/file.txt' \n\t\t},\n\t\t{\n\t\t\t// construct your own\n\t\t\tname:'uploadedFile',\n\t\t\tfilename: 'file2.jpg',\n\t\t\tmime: 'image/jpg',\n\t\t\tcontent: 'jpeg strings.....'\n\t\t},\n\t\t{\n\t\t\t// use automatic MIME based on `filename` extension\n\t\t\tname:'uploadedFile',\n\t\t\tfilename: 'file3.jpg',\n\t\t\tcontent: 'jpeg strings.....'\n\t\t}\n\t]\n}\n```\n\nWill create:\n```text\nPOST /path HTTP/1.1\nHost: domain.com\nContent-Type: multipart/form-data; boundary=o98aywaw74eyo\nContent-Length: 2234766\n\n--o98aywaw74eyo\nContent-Disposition: form-data; name=\"name\"\n\nJohnDoe\n--o98aywaw74eyo\nContent-Disposition: form-data; name=\"occupation\"\n\nAwesome Staff\n--o98aywaw74eyo\nContent-Disposition: form-data; name=\"uploaded1\"; filename=\"file.txt\"\nContent-Type: text/plain\n\ntext here\n--o98aywaw74eyo\nContent-Disposition: form-data; name=\"uploadedFile\"; filename=\"file2.jpg\"\nContent-Type: image/jpg\n\nfile2.jpg content here ...\n--o98aywaw74eyo\nContent-Disposition: form-data; name=\"uploadedFile\"; filename=\"file3.jpg\"\nContent-Type: image/jpg\n\nfile3.jpg content here ...\n--o98aywaw74eyo--\n```\n\n\n####Arbitrary Data Transfer\nYou can construct everything yourself:\n```javascript\n{\n\ttype : 'application/xml',\n\tcontent: '<some>XML</some>'\n}\n```\nRemember that using `options.data.type` will override `Content-Type` header.\n\nUse it only to send strings with `options.data.content`, unless you know what you're doing..\n\n\n\ncheers,\n\n[jujiyangasli.com](http://jujiyangasli.com)\n",
-  "readmeFilename": "README.md",
-  "gitHead": "d602d6983c040291957d8cb763478d9de7d1a69c",
-  "_id": "jhttp-client@0.0.21",
-  "_shasum": "06d84adac57b5b469c9fade49b018841bfe9d419",
-  "_from": "jhttp-client@"
+  "author": "",
+  "license": "ISC"
 }
