@@ -25,18 +25,18 @@ var httpClient = HTTPC();
 
 httpClient.request("google.com")
 .then(function( response ){
-	
-	console.log(response.status);
-	console.log(response.headers);
-	console.log(response.body);		
+  
+  console.log(response.status);
+  console.log(response.headers);
+  console.log(response.body);    
 
 })
 .fail(function( response ){
-	
-	console.log(response.status);
-	console.log(response.headers);
-	console.log(response.body);
-	console.log(response.text);
+  
+  console.log(response.status);
+  console.log(response.headers);
+  console.log(response.body);
+  console.log(response.text);
 
 });
 
@@ -57,28 +57,28 @@ httpClient.request( options );
 ###`options` [object]
 ```javascript
 {
-	auth               : '',
-	accept             : 'text/html, text/plain, application/json, */*',
-	output             : 'string',
-	expect             : 200,
-	followRedirect     : true,
-	useCookie          : true,
-	method             : "get",
-	url                : "example.com",
-	data               : false,
-	charset			   : "utf-8",
-	proxy              : '',
-	ssl                : {
-		rejectUnauthorized : false,
-	},
-	headers            : {
-		'user-agent'       : '',
-		'Accept-Encoding'  : 'gzip;q=0.9, deflate;q=0.5, identity;q=0.2'
-	},
-	agent 			   : {
-		keepAlive          : true
-	},
-	log 			   : false
+  auth               : '',
+  accept             : 'text/html, text/plain, application/json, */*',
+  output             : 'string',
+  expect             : 200,
+  followRedirect     : true,
+  useCookie          : true,
+  method             : "get",
+  url                : "example.com",
+  data               : false,
+  charset            : "utf-8",
+  proxy              : '',
+  ssl                : {
+    rejectUnauthorized : false,
+  },
+  headers            : {
+    'user-agent'       : '',
+    'Accept-Encoding'  : 'gzip;q=0.9, deflate;q=0.5, identity;q=0.2'
+  },
+  agent          : {
+    keepAlive          : true
+  },
+  log          : false
 }
 
 // above are the default values
@@ -134,10 +134,10 @@ Use `options.data` object to transfer data. Below are some example of data trans
 The following will create an `application/x-www-form-urlencoded` data transfer:
 ```javascript
 {
-	content:{
-		name: 'JohnDoe',
-		occupation: 'Awesome Staff'
-	}
+  content:{
+    name: 'JohnDoe',
+    occupation: 'Awesome Staff'
+  }
 }
 ```
 
@@ -154,30 +154,30 @@ name=JohnDoe&occupation=Awesome%20Staff
 A `multipart/form-data` data transfer can also be created:
 ```javascript
 {
-	content: {
-			name: 'JohnDoe',
-			occupation: 'Awesome Staff'
-	},
-	file:[
-		{ 
-			// will read the file and send it
-			name:'uploaded1',
-			filename: 'some/file.txt' 
-		},
-		{
-			// construct your own
-			name:'uploadedFile',
-			filename: 'file2.jpg',
-			mime: 'image/jpg',
-			content: 'jpeg strings.....'
-		},
-		{
-			// use automatic MIME based on `filename` extension
-			name:'uploadedFile',
-			filename: 'file3.jpg',
-			content: 'jpeg strings.....'
-		}
-	]
+  content: {
+      name: 'JohnDoe',
+      occupation: 'Awesome Staff'
+  },
+  file:[
+    { 
+      // will read the file and send it
+      name:'uploaded1',
+      filename: 'some/file.txt' 
+    },
+    {
+      // construct your own
+      name:'uploadedFile',
+      filename: 'file2.jpg',
+      mime: 'image/jpg',
+      content: 'jpeg strings.....'
+    },
+    {
+      // use automatic MIME based on `filename` extension
+      name:'uploadedFile',
+      filename: 'file3.jpg',
+      content: 'jpeg strings.....'
+    }
+  ]
 }
 ```
 
@@ -219,15 +219,15 @@ file3.jpg content here ...
 You can construct everything yourself:
 ```javascript
 {
-	type : 'application/xml',
-	content: '<some>XML</some>'
+  type : 'application/xml',
+  content: '<some>XML</some>'
 }
 ```
 Or, using stream:
 ```javascript
 {
-	type : 'text/csv',
-	filename: '/home/some/path/file.csv'
+  type : 'text/csv',
+  filename: '/home/some/path/file.csv'
 }
 ```
 Remember that using `options.data.type` will override `Content-Type` header.
