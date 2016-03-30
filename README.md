@@ -25,7 +25,8 @@ var httpClient = HTTPC();
 
 httpClient.request("google.com")
 .then(function( response ){
-  
+
+  console.log(response.request.url);
   console.log(response.status);
   console.log(response.headers);
   console.log(response.body);    
@@ -33,6 +34,7 @@ httpClient.request("google.com")
 })
 .fail(function( response ){
   
+  console.log(response.request.url);
   console.log(response.status);
   console.log(response.headers);
   console.log(response.body);

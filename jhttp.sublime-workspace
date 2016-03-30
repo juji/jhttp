@@ -119,38 +119,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "index.js",
-			"settings":
-			{
-				"buffer_size": 9606,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test/tests.js",
-			"settings":
-			{
-				"buffer_size": 4065,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 14,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 5180,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -362,13 +330,26 @@
 	"expanded_folders":
 	[
 		"/media/files/work/repo/jhttp",
+		"/media/files/work/repo/jhttp/dev",
+		"/media/files/work/repo/jhttp/lib",
 		"/media/files/work/repo/jhttp/test"
 	],
 	"file_history":
 	[
+		"/media/files/work/projects/bridestory/server/scripts/crawl/bsd",
+		"/media/files/work/projects/bridestory/server/services/crawl/automigrate/automigrate.conf",
+		"/media/files/work/repo/jhttp/lib/jhttp.js",
+		"/media/files/work/repo/jhttp/README.md",
+		"/media/files/work/repo/jhttp/package.json",
+		"/media/files/work/projects/bridestory/server/services/crawl/rmall",
+		"/media/files/work/repo/jhttp/index.js",
+		"/media/files/work/repo/jhttp/lib/iconv.js",
+		"/media/files/work/repo/jhttp/.gitignore",
+		"/media/files/work/repo/jhttp/lib/BodyGenerator.js",
+		"/media/files/work/repo/jhttp/test/test.js",
+		"/media/files/work/repo/jhttp/test/tests.js",
 		"/media/files/work/projects/bridestory/stuff/AOS/mysql.credentials.txt",
 		"/media/files/work/repo/jhttp/index.js~",
-		"/media/files/work/repo/jhttp/package.json",
 		"/media/yagitudeh/WORK/www/juji/testcookie.php",
 		"/media/yagitudeh/WORK/node/upload/client.js",
 		"/media/yagitudeh/WORK/node/upload/server.js",
@@ -482,18 +463,7 @@
 		"/media/yagitudeh/WORK/www/enet/subscribe/README.md",
 		"/media/yagitudeh/WORK/www/enet/app/classes/Auth.php",
 		"/media/yagitudeh/WORK/www/enet/app/classes/Component.php",
-		"/media/yagitudeh/WORK/www/enet/.htaccess",
-		"/media/yagitudeh/WORK/www/enet/app/classes/Utils.php",
-		"/media/yagitudeh/WORK/www/cmsbaru/admin/classes/Url.php",
-		"/media/yagitudeh/WORK/www/enet/api/_module/example.php",
-		"/media/yagitudeh/WORK/www/enet/img/index.php",
-		"/media/yagitudeh/WORK/www/enet/img/Variables.php",
-		"/media/yagitudeh/WORK/www/enet/api/_init.php",
-		"/media/yagitudeh/WORK/www/enet/api/_settings.php",
-		"/media/yagitudeh/WORK/www/enet/api/index.php",
-		"/media/yagitudeh/WORK/www/enet/subscribe/.openshift/action_hooks/deploy",
-		"/media/yagitudeh/WORK/www/enet/api/_includes.php",
-		"/media/yagitudeh/WORK/www/enet/php-error.log"
+		"/media/yagitudeh/WORK/www/enet/.htaccess"
 	],
 	"find":
 	{
@@ -511,6 +481,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"	",
+			"{log:true}",
 			".skip(",
 			"iconv",
 			"ff",
@@ -636,9 +608,7 @@
 			"bool",
 			"imagecontainer",
 			"imagegrid",
-			"pages.created",
-			"page/:",
-			"Page::"
+			"pages.created"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -646,6 +616,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"  ",
 			"(",
 			"describe",
 			"describe.skip('#",
@@ -769,183 +740,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9606,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4791,
-								4791
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2592.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "test/tests.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4065,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								224,
-								224
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": ".gitignore",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14,
-								14
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5180,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1143,
-								1143
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 765.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -992,7 +788,7 @@
 	"project": "jhttp.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 114.0
 	},
 	"save_all_on_build": true,
 	"select_file":
