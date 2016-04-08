@@ -173,3 +173,18 @@ describe('multipart', function() {
 	    	});	
     });
 })
+
+describe('unix',function(){
+
+	it('should do unix socket',function(){
+
+		return jhttp().request({
+	    		url: 'http://unix:/home/juji/sock:/',
+	    	}).then(function(d){
+	    		d.status.should.equal(200);
+	    		d.body.should.not.equal('');
+	    	});
+
+	});
+
+});
