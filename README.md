@@ -88,7 +88,7 @@ httpClient.request( options );
 
 **`options.method`** "get", "post", "put", "delete", "head", "patch".
 
-**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com".
+**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com" or "http://unix:/the/socket:/uri/path?par=stuff".
 
 **`options.accept`** will be used in `Accept` headers.
 
