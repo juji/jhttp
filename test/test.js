@@ -188,3 +188,42 @@ describe('unix',function(){
 	});
 
 });
+
+describe('stream',function(){
+
+	it('should stream body',function(){
+
+		var f = jhttp().request({
+	    		url: 'http://google.com',
+	    		stream: true
+	    	});
+
+		f.then(function(d){
+	    	d.status.should.equal(200);
+	    	d.body.should.equal('');
+	    });
+
+		var len = 0;
+	    f.stream
+	    .on('redirect',function(c){
+	    	
+	    	console.log('------------------');
+	    	console.log('Redirect: '+c);
+
+	    }).on('headers',function(c){
+	    	console.log('------------------');
+	    	console.log('Headers: ');
+	    	console.log('------------------');
+	    	console.log(c);
+	    	console.log('------------------');
+	    }).on('data',function(c){
+	    	len += c.length;
+	    }).on('end',function(c){
+	    	console.log('content length: '+len);
+	    });
+
+	    return f;
+
+	});
+
+});

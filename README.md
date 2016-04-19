@@ -80,51 +80,92 @@ httpClient.request( options );
   agent          : {
     keepAlive          : true
   },
-  log          : false
+  log          : false,
+  stream       : false
 }
 
 // above are the default values
 ```
 
-**`options.method`** "get", "post", "put", "delete", "head", "patch".
+**options.method** "get", "post", "put", "delete", "head", "patch".
 
-**`options.url`** "http://domain.com/path" or "https://domain.com" or "domain.com" or "http://unix:/the/socket:/uri/path?par=stuff".
+**options.url** "http://domain.com/path" or "https://domain.com" or "domain.com" or "http://unix:/the/socket:/uri/path?par=stuff".
 
-**`options.accept`** will be used in `Accept` headers.
+**options.accept** will be used in `Accept` headers.
 
 - `options.accept = "*/*"` will be overriden by <br />`options.output = "json"` or `options.output = "$"`.
 
-**`options.output`** "string", "buffer", "json", "$". The `$` will output jQuery-like object.
+**options.output** "string", "buffer", "json", "$". The `$` will output jQuery-like object.
 
 - `options.output = "json"` will change `options.accept` from `*/*` to `application/json`.
 
 - `options.output = "$"` will change `options.accept` from `*/*` to `text/html`.
 
-**`options.expect`** HTTP status to expect. Will *reject* the *promise* if not fulfilled.
+**options.expect** HTTP status to expect. Will *reject* the *promise* if not fulfilled.
 
 - Use `options.expect = false` to accept every HTTP status
 
-**`options.charset`** will be used in `Accept` and `Accept-Charset` headers.
+**options.charset** will be used in `Accept` and `Accept-Charset` headers.
 
-**`options.followRedirect`**. If `true`, will not *reject* the *promise* on redirect status (3**).
+**options.followRedirect**. If `true`, will not *reject* the *promise* on redirect status (3**).
 
-**`options.useCookie`** will save cookie and use them for future requests with the same domain.
+**options.useCookie** will save cookie and use them for future requests with the same domain.
 
 - `options.useCookie` Will be overriden by `options.headers.cookie` value.
 
-**`options.auth`** basic HTTP auth: "user:password".
+**options.auth** basic HTTP auth: "user:password".
 
-**`options.proxy`** To make request through a proxy, i.e. http://123.345.543.234:8080
+**options.proxy** To make request through a proxy, i.e. http://123.345.543.234:8080
 
-**`options.ssl`** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
+**options.stream** Use stream for request body.
 
-**`options.headers.accept`** will override **`options.accept`** regardless of **`options.output`**.
+**options.ssl** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
 
-**`options.headers["accept-charset"]`** will override **`options.charset`**.
+**options.headers.accept** will override **options.accept** regardless of **options.output**.
+
+**options.headers["accept-charset"]** will override **options.charset**.
 
 - `accept-encoding` headers will always be `gzip;q=0.9, deflate;q=0.5, identity;q=0.2`, unless overriden with `options.headers["accept-encoding"]`.
 
 ---
+
+##Stream
+Use **options.stream** to use stream in handling response body.
+```js
+var req = httpClient.request({
+  url: 'http://example.com',
+  stream: true
+});
+
+req.stream
+.on('redirect',function(url){
+  
+  
+
+}).on('headers',function(heads){
+  
+  console.log(heads);
+
+}).on('data',function(c){
+
+    process.stdout.write(c);
+
+}).on('end',function(){
+
+    console.log('--------------------------');
+    console.log('All data has been printed');
+
+});
+
+// You can still use promise for 
+req.then(function( res ){
+  
+  // res.body will be empty
+  console.log( res.body );
+
+})
+
+```
 
 ##Data Transfer
 
