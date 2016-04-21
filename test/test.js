@@ -75,6 +75,20 @@ describe('html', function() {
     });
 });
 
+describe('proxy', function() {
+
+	this.timeout(888888);
+	it('should use proxy', function() {
+		return jhttp().request({
+	    		url: 'http://asdf.com',
+	    		proxy: 'http://187.75.227.19:8080',
+	    		output:'$'
+	    	}).then(function(d){
+	    		d.status.should.equal(200);
+	    	});	
+    });
+});
+
 
 describe('https', function() {
 
