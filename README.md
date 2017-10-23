@@ -80,6 +80,7 @@ httpClient.request( options );
   agent          : {
     keepAlive          : true
   },
+  timeout      : 60000,
   log          : false,
   stream       : false
 }
