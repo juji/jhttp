@@ -118,7 +118,9 @@ httpClient.request( options );
 
 **options.proxy** To make request through a proxy, i.e. http://123.345.543.234:8080
 
-**options.stream** Use stream for request body.
+**options.stream** Use stream for request body (boolean).
+
+**options.timeout** Timeout used in client.
 
 **options.ssl** is used in `tls.connect()`. Read more in the [documentation](http://nodejs.org/api/https.html#https_https_request_options_callback).
 
