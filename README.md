@@ -1,8 +1,8 @@
-#jhttp-client
+# jhttp-client
 
 node.js promise-based http client
 
-##features
+## features
 - HTTP & HTTPS
 - GET, POST, PUT, DELETE, HEAD, PATCH
 - built-in [cookie manager](https://www.npmjs.org/package/cookie-manager)
@@ -12,12 +12,12 @@ node.js promise-based http client
 - return buffer as response `body`
 - support file upload or other arbitrary HTTP data transfer
 
-##install
+## install
 ```javascript
 npm install jhttp-client
 ```
 
-##usage
+## usage
 ```javascript
 
 var HTTPC = require("jhttp-client");
@@ -46,7 +46,7 @@ httpClient.request("google.com")
 
 ---
 
-##Options
+## Options
 ```javascript
 // global options
 var httpClient = HTTPC( options );
@@ -56,7 +56,7 @@ var httpClient = HTTPC( options );
 httpClient.request( options );
 ```
 
-###`options` [object]
+### `options` [object]
 ```javascript
 {
   auth               : '',
@@ -129,7 +129,7 @@ httpClient.request( options );
 
 ---
 
-##Stream
+## Stream
 Use **options.stream** to use stream in handling response body.
 ```js
 var req = httpClient.request({
@@ -167,13 +167,13 @@ req.then(function( res ){
 
 ```
 
-##Data Transfer
+## Data Transfer
 
 Use `options.data` object to transfer data. Below are some example of data transfers.
 
 **NOTE:** `GET` request will not use the `options.data` attribute.
 
-####HTML form upload
+#### HTML form upload
 The following will create an `application/x-www-form-urlencoded` data transfer:
 ```javascript
 {
@@ -258,7 +258,7 @@ file3.jpg content here ...
 ```
 
 
-####Arbitrary Data Transfer
+#### Arbitrary Data Transfer
 You can construct everything yourself:
 ```javascript
 {
